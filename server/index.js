@@ -8,6 +8,7 @@ app.use(express.json()); //解析json格式的body
 app.use(express.urlencoded({ extended: false })); //解析urlencoded格式的body
 
 app.use(express.static("public")); //映射静态资源的位置
+app.use("/imgs", express.static("imgs")); //映射静态资源的位置
 
 
 // 当请求地址以/api/student开头时，交给路由 student 处理

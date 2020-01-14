@@ -66,7 +66,7 @@ async function getOneMovie(id) {
         console.log(`【完毕】电影【${movie.name}】获取完毕`);
         return movie;
     }
-    catch(err){
+    catch (err) {
         console.log(`电影【${id}】获取失败，原因未知`);
         return null;
     }
@@ -80,9 +80,32 @@ async function fetchAllMovies() {
     var proms = ids.map(id => getOneMovie(id))
     var movies = await Promise.all(proms);
     console.log("所有电影获取完毕");
-    return movies.filter(m => m);
+    movies = movies.filter(m => m);
+    handleImgs(movies)
+    return movies;
 }
-
+var request = require("request")
+var fs = require("fs")
+var path = require("path")
+//下载处理封面图片
+function handleImgs(movies) {
+    var dir = path.resolve(__dirname, "../imgs");
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
+    for (const m of movies) {
+        handleImg(m)
+    }
+}
+//下载处理封面图片  单张
+function handleImg(m) {
+    var ext = path.extname(m.cover); //获取图片后缀
+    var filename = path.resolve(__dirname, "../imgs", `${m.doubanid}${ext}`)
+    if (!fs.existsSync(filename)) {
+        request(m.cover).pipe(fs.createWriteStream(filename))
+    }
+    m.cover = `/imgs/${m.doubanid}${ext}`;
+}
 
 
 //爬取豆瓣正在热映影片
