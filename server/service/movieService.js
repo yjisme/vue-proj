@@ -38,5 +38,7 @@ exports.deleteMovie = async function (id) {
 
 //获取单部电影
 exports.getMovie = async function(id){
-    return await movieDao.getMovie(id);
+    var obj = await movieDao.getMovie(id);
+    obj.update = new Date(obj.update).toLocaleDateString();
+    return obj;
 }

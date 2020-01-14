@@ -7,6 +7,11 @@ var app = express();
 app.use(express.json()); //解析json格式的body
 app.use(express.urlencoded({ extended: false })); //解析urlencoded格式的body
 
+//下面两行代码是为了解决服务端单页应用程序history模式的问题
+//详情见：https://www.npmjs.com/package/connect-history-api-fallback
+var history = require('connect-history-api-fallback');
+app.use(history());
+
 app.use(express.static("public")); //映射静态资源的位置
 app.use("/imgs", express.static("imgs")); //映射静态资源的位置
 

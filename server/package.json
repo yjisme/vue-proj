@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.19.1",
     "cheerio": "^1.0.0-rc.3",
+    "connect-history-api-fallback": "^1.6.0",
     "request": "^2.88.0"
   }
 }

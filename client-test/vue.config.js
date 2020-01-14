@@ -8,5 +8,6 @@ module.exports = {
                 target: 'http://localhost:9527'
             }
         }
-    }
+    },
+    outputDir: "../server/public"
 }
